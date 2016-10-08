@@ -32,9 +32,8 @@ For more about how eris starts chains please type into your command line
 [eris chains start --help]
 
 EOF
-  eris chains new dualintegrator --dir dualintegrator/dualintegrator_full_000
+  eris chains start dualintegrator --init-dir dualintegrator_full_000
   cp $HOME/.eris/chains/dualintegrator/accounts.json .
-
   cat <<EOF
 We have a chain running. Now we will deploy our smart contracts to it.
 To perform this command, we will utilize the eris package-manager
@@ -48,8 +47,8 @@ command line.
 EOF
   addr=$(cat $HOME/.eris/chains/dualintegrator/addresses.csv | grep "full_000" | cut -d ',' -f 1)
   addr2=$(cat $HOME/.eris/chains/dualintegrator/addresses.csv | grep "participant_000" | cut -d ',' -f 1)
-  eris pkgs do --chain dualintegrator --address $addr --set "addr1=$addr" --set "addr2=$addr2" 1>/dev/null
-
+  eris pkgs do --chain dualintegrator --address $addr --set "addr1=$addr" --set "addr2=$addr2"
+  exit 0
   cat <<EOF
 
 We've now reached the final stage of the setup process. We've created
