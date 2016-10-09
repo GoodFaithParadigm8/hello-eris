@@ -9,6 +9,7 @@ abi
 epm.json
 jobs_output.json
 accounts.json
+coverage
 
 # Other
 node_modules

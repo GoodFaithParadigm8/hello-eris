@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+scripts/clean
+scripts/build
+npm start

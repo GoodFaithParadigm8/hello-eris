@@ -13,8 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "bluebird": "^3.4.1",
-    "eris-contracts": "^0.13.3",
-    "eris-db": "^0.15.0",
+    "eris-contracts": "git://github.com/eris-ltd/eris-contracts.js.git#rc3",
+    "eris-db": "git://github.com/eris-ltd/eris-db.js.git#rc3",
     "fairmont": "^1.1.6",
     "humanize-duration": "^3.9.1",
     "is-promise": "^2.1.0",

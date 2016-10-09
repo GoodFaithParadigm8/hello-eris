@@ -18,26 +18,20 @@ const url = require('url')
 const exec = R.composeP(R.trim, R.head, childProcess.exec)
 
 const privateValidator = () =>
-  fs.readFile(untildify('~/.eris/chains/default/priv_validator.json'))
+  fs.readFile(untildify(`~/.eris/chains/${blockchainName}/priv_validator.json`))
     .then(JSON.parse)
 
-const dockerMachineIp = () =>
-  exec('docker-machine ip').catch(() => 'localhost')
-
-const blockchainUrl = (name) => {
-  const blockchainPort = () =>
+const blockchainUrl = () => {
+  const blockchainAddress = () =>
     exec(`
-      id=$(eris chains inspect ${name} Id)
-      docker inspect --format='{{(index (index .NetworkSettings.Ports "1337` +
-        `/tcp") 0).HostPort}}' $id
+      eris chains ports ${blockchainName} 46657
     `)
 
-  return Promise.all([dockerMachineIp(), blockchainPort()])
-    .spread((hostname, port) => ({
+  return Promise.all([blockchainAddress()])
+    .spread((address) => ({
       protocol: 'http:',
       slashes: true,
-      hostname,
-      port,
+      address,
       pathname: '/rpc'
     })
   )
@@ -53,10 +47,9 @@ const blockchainIsAvailable = (erisDb) =>
 
 const newBlockchain = (name) =>
   exec(`
-    eris chains rm --data --dir --file --force ${name}
-    eris chains new --publish ${name}
+    eris chains start --publish ${blockchainName} --init-dir ${blockchainName}
   `, {env: R.assoc('ERIS_PULL_APPROVE', true, process.env)}).then(() =>
-    blockchainUrl(name).then((blockchainUrl) =>
+    blockchainUrl().then((blockchainUrl) =>
       blockchainIsAvailable(ErisDb.createInstance(url.format(blockchainUrl)))
     )
   )
@@ -83,8 +76,9 @@ const compile = source =>
 const metric = (command, transactions, milliseconds) =>
   `${Math.round(transactions / (milliseconds / 1000))} ${command}s per second`
 
-Promise.all([newBlockchain(blockchainName), privateValidator()])
+Promise.all([newBlockchain(), privateValidator()])
   .spread((erisDb, validator) => {
+    console.log(`edb: ${JSON.stringify(erisDb)}`)
     const contractManager = erisContracts.newContractManagerDev(
       erisDb._client._URL, {
         address: validator.address,
