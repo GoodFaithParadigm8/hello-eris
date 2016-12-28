@@ -9,6 +9,8 @@ describe("Hello Eris Test", function() {
     this.timeout(5000); // 5 sec timeout to account for block commit delay
 
     it("Module Initialization", function(done) {
+        this.timeout(5000);
+        setTimeout(done, 3000);
         chain.init(function(error) {
             expect(error).to.be.null;
             db.refresh(function(error) {
