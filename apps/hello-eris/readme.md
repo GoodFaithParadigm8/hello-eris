@@ -8,18 +8,17 @@ npm install
 ```
 ### Test Chain
 ```
-cd test
-eris keys import chain-config/export-account
-eris chains new hello --dir chain-config
+eris chains start hello-chain --init-dir test/chain-config -p
 ```
 
 ### Contract Deployment
 In Bash Shell:
 ```
 cd contracts
-account=$(sed -n -e '/Address/ s/.*Address\":\"\([[:alnum:]]*\)\".*$/\1/p' ../test/chain-config/export-account)
-eris pkgs do -c hello -a $account
+account=$(jq -r '.["hello-chain_full_000"].address' ../test/chain-config/accounts.json)
+eris pkgs do -c hello-chain -a $account
 ```
+Note: If you do not have `jq` available on the commandline, you can also simply manually copy the account's address from `accounts.json` to use as parameter for the `eris pkgs` command.
 
 ### Application
 - Run the test/hello-test.js mocha/chai test script to invoke some basic JS functions

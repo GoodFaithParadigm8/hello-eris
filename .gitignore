@@ -6,7 +6,7 @@ package
 
 # Compiler-generated
 abi
-epm.json
+jobs_output.json
 
 # Other
 node_modules

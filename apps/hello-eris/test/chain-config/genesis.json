@@ -1,10 +1,10 @@
 {
-  "chain_id": "eureka",
+  "chain_id": "hello-chain",
   "accounts": [
     {
-      "address": "609DE71ECA4548D090757E63E69E62898D2D037F",
+      "address": "4E980370AE35983D2461CE92A9D0182D5C0BEF6A",
       "amount": 99999999999999,
-      "name": "eris_full_000",
+      "name": "hello-chain_full_000",
       "permissions": {
         "base": {
           "perms": 16383,
@@ -18,13 +18,13 @@
     {
       "pub_key": [
         1,
-        "0381F03BB44C21DB3D29B8249EB0D4E448B3EAEFED1D0A21B605CDE5BEB5331B"
+        "CF50062A41E7C677E5042E855F6FE35D314BF082C3AEB1B9AB90C70DB45B49AA"
       ],
-      "name": "eris_full_000",
+      "name": "hello-chain_full_000",
       "amount": 9999999999,
       "unbond_to": [
         {
-          "address": "609DE71ECA4548D090757E63E69E62898D2D037F",
+          "address": "4E980370AE35983D2461CE92A9D0182D5C0BEF6A",
           "amount": 9999999999
         }
       ]

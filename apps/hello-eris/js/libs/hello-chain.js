@@ -23,12 +23,12 @@ var eris = require(__libs+'/eris-wrapper');
     // ##############
     // The following part depends on local files that are generated during contract deployment via EPM
     // ##############
-    var epmData = require(__contracts+'/epm.json');
+    var epmData = require(__contracts+'/jobs_output.json');
     var messageFactoryAbi = JSON.parse(fs.readFileSync(__contracts+'/abi/DealManager'));
     var messageAbi = JSON.parse(fs.readFileSync(__contracts+'/abi/Deal'));
 
     // Instantiate connection
-    var erisWrapper = new eris.NewWrapper( (__settings.eris.chain.host || 'localhost'), (__settings.eris.chain.port || '1337') );
+    var erisWrapper = new eris.NewWrapper( (__settings.eris.chain.host || 'localhost'), (__settings.eris.chain.port || '32770') );
     // Create contract objects
     var dealManager = erisWrapper.createContract(messageFactoryAbi, epmData['DealManager']);
     var dealContract = erisWrapper.createContract(messageAbi, epmData['Deal']);
